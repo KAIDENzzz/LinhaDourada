@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #303030;
+        }
+        .login-container {
+            background: #303030;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            text-align: center;
+            color: white;
+        }
+        .input-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        .digit-input {
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Bem Vinda Ratinha!!!</h2>
+        <div class="input-container">
+            <input type="tel" class="digit-input" oninput="apenasNumeros(this, 1)" maxlength="1" id="d1" onkeydown="moverParaAnterior(event, 1)" autocomplete="off" autofocus>
+            <input type="tel" class="digit-input" oninput="apenasNumeros(this, 2)" maxlength="1" id="d2" onkeydown="moverParaAnterior(event, 2)" disabled autocomplete="off">
+            <input type="tel" class="digit-input" oninput="apenasNumeros(this, 3)" maxlength="1" id="d3" onkeydown="moverParaAnterior(event, 3)" disabled autocomplete="off">
+            <input type="tel" class="digit-input" oninput="apenasNumeros(this, 4)" maxlength="1" id="d4" onkeydown="moverParaAnterior(event, 4)" disabled autocomplete="off">
+        </div>
+        <p id="mensagem" style="color: red; margin-top: 10px;"></p>
+    </div>
+    
+    <script src="senha.js"></script>
+</body>
+</html>
