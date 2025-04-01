@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polaroid Frame</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #303030;
+            margin: 0;
+            padding-top: 50px;
+        }
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background-color: #222;
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 3;
+        }
+        .navbar button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            margin: 0 15px;
+            cursor: pointer;
+            padding: 10px;
+        }
+        .navbar button:hover {
+            background-color: #444;
+            border-radius: 5px;
+        }
+        .grid {
+            display: grid;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+            max-width: 100%;
+        }
+        @media (min-width: 1024px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 767px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .polaroid {
+            background: white;
+            padding: 10px;
+            width: 250px;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            font-family: Arial, sans-serif;
+            border-radius: 5px;
+            padding-bottom: 30px;
+        }
+        .polaroid img {
+            width: 100%;
+            display: block;
+            border-radius: 5px;
+        }
+        .caption {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #333;
+            font-style: italic;
+            font-family: 'Indie Flower', cursive;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <button onclick="window.location.href='contador.html'">Contador</button>
+        <button onclick="window.location.href='linha_do_tempo.html'">Linha do Tempo</button>
+        <button onclick="window.location.href='galeria.html'">Galeria</button>
+    </div>
+    
+    <div class="grid">
+        <div class="polaroid">
+            <img src="galeria/img-polaroid (1).jpg" alt="Imagem Polaroid">
+            <div class="caption">Minha Foto Polaroid 1<br>Uma lembrança especial!</div>
+        </div>
+        <div class="polaroid">
+            <img src="galeria/img-polaroid (2).jpg" alt="Imagem Polaroid">
+            <div class="caption">Minha Foto Polaroid 2<br>Momentos inesquecíveis.</div>
+        </div>
+        <div class="polaroid">
+            <img src="galeria/img-polaroid (3).jpg" alt="Imagem Polaroid">
+            <div class="caption">Minha Foto Polaroid 2<br>Momentos inesquecíveis.</div>
+        </div>
+        <div class="polaroid">
+            <img src="galeria/img-polaroid (4).jpg" alt="Imagem Polaroid">
+            <div class="caption">Minha Foto Polaroid 2<br>Momentos inesquecíveis.</div>
+        </div>
+        <div class="polaroid">
+            <img src="galeria/img-polaroid (5).jpg" alt="Imagem Polaroid">
+            <div class="caption">Minha Foto Polaroid 2<br>Momentos inesquecíveis.</div>
+        </div>
+        <div class="polaroid">
+            <img src="galeria/img-polaroid (6).jpg" alt="Imagem Polaroid">
+            <div class="caption">Minha Foto Polaroid 2<br>Momentos inesquecíveis.</div>
+        </div>
+        <div class="polaroid">
+            <img src="galeria/img-polaroid (7).jpg" alt="Imagem Polaroid">
+            <div class="caption">Minha Foto Polaroid 2<br>Momentos inesquecíveis.</div>
+        </div>
+        <div class="polaroid">
+            <img src="galeria/img-polaroid (8).jpg" alt="Imagem Polaroid">
+            <div class="caption">Minha Foto Polaroid 3<br>Dia maravilhoso!</div>
+        </div>
+        <div class="polaroid">
+            <img src="galeria/img-polaroid (9).jpg" alt="Imagem Polaroid">
+            <div class="caption">Minha Foto Polaroid 2<br>Momentos inesquecíveis.</div>
+        </div>
+    </div>
+</body>
+</html>

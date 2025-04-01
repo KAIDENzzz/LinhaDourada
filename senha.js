@@ -14,7 +14,7 @@ async function validarSenha() {
     if (senhaDigitada.length === 4) {
         const senhaHash = await gerarHash(senhaDigitada);
         if (senhaHash === senhaCorretaHash) {
-            window.location.href = "ProjetoLinhaDourdaIndex.html";
+            window.location.href = "contador.html";
         } else {
             document.getElementById("mensagem").innerText = "Senha incorreta!";
         }
