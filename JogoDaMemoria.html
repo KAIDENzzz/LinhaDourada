@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Memória</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #303030;
+            overflow: hidden;
+            color: white;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background-color: #222;
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 3;
+        }
+        .navbar button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            margin: 0 15px;
+            cursor: pointer;
+            padding: 10px;
+        }
+        .navbar button:hover {
+            background-color: #444;
+            border-radius: 5px;
+        }
+        .flores-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .flor {
+            position: absolute;
+            font-size: 30px;
+            animation: cair 10s linear infinite;
+        }
+        @keyframes cair {
+            from {
+                transform: translateY(-100px);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            gap: 10px;
+            margin-top: 60px;
+            position: relative;
+            z-index: 2;
+        }
+        .card {
+            width: 100px;
+            height: 100px;
+            background-color: #3498db;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            cursor: pointer;
+            border-radius: 10px;
+            user-select: none;
+            position: relative;
+            z-index: 3;
+        }
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        .hidden {
+            background-color: #2c3e50;
+        }
+        .title {
+            font-size: 2.5em;
+            font-weight: bold;
+            text-align: center;
+            color: #dadada;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+            margin-bottom: 20px;
+            z-index: 2;
+        }
+        .message {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .restart-btn {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <button onclick="window.location.href='contador.html'">Contador</button>
+        <button onclick="window.location.href='linha_do_tempo.html'">Linha do Tempo</button>
+        <button onclick="window.location.href='galeria.html'">Galeria</button>
+        <button onclick="window.location.href='JogoDaMemoria.html'">Jogos</button>
+    </div>
+    
+    <div class="flores-container"></div>
+    <div class="title" id="title">JOGO DA MEMÓRIA</div>
+    <div class="message" id="winMessage">Parabéns! Você venceu!</div>
+    <div class="game-container" id="gameBoard"></div>
+    <br/>
+    <button class="restart-btn" id="restartButton" onclick="restartGame()">Recomeçar</button>
+    
+    <script>
+        function criarFlor() {
+            const flor = document.createElement("div");
+            flor.classList.add("flor");
+            const rosas = ["🌹", "🌹", "🌹", "🌹"];
+            const coracoes = ["💝", "💘", "💗", "💖", "❣️", "💕", "💕", "💕"];
+            const emojis = Math.random() < 0.4 ? rosas : coracoes;
+            flor.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            flor.style.left = Math.random() * window.innerWidth + "px";
+            document.querySelector(".flores-container").appendChild(flor);
+            setTimeout(() => flor.remove(), 10000);
+        }
+        setInterval(criarFlor, 500);
+        
+        const images = [
+            'galeria/img-polaroid (1).jpg', 'galeria/img-polaroid (10).jpg', 'galeria/img-polaroid (3).jpg', 'galeria/img-polaroid (4).jpg',
+            'galeria/img-polaroid (5).jpg', 'galeria/img-polaroid (6).jpg', 'galeria/img-polaroid (7).jpg', 'galeria/img-polaroid (11).jpg'
+        ];
+        let cards = [...images, ...images];
+        let flippedCards = [];
+        let matchedPairs = 0;
+
+        function shuffle(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function createBoard() {
+            matchedPairs = 0;
+            flippedCards = [];
+            cards = shuffle(cards);
+            document.getElementById('winMessage').style.display = 'none';
+            document.getElementById('restartButton').style.display = 'none';
+            const board = document.getElementById('gameBoard');
+            board.innerHTML = '';
+            cards.forEach((image, index) => {
+                const card = document.createElement('div');
+                card.classList.add('card', 'hidden');
+                card.dataset.image = image;
+                const img = document.createElement('img');
+                img.src = image;
+                card.appendChild(img);
+                card.addEventListener('click', flipCard);
+                board.appendChild(card);
+            });
+        }
+
+        function flipCard() {
+            if (flippedCards.length < 2 && !this.classList.contains('matched')) {
+                this.classList.remove('hidden');
+                this.querySelector('img').style.display = 'block';
+                flippedCards.push(this);
+            }
+            if (flippedCards.length === 2) {
+                setTimeout(checkMatch, 500);
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            if (card1.dataset.image === card2.dataset.image) {
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                matchedPairs++;
+                if (matchedPairs === images.length) {
+                    document.getElementById('winMessage').style.display = 'block';
+                    document.getElementById('restartButton').style.display = 'block';
+                }
+            } else {
+                card1.querySelector('img').style.display = 'none';
+                card2.querySelector('img').style.display = 'none';
+                card1.classList.add('hidden');
+                card2.classList.add('hidden');
+            }
+            flippedCards = [];
+        }
+
+        function restartGame() {
+            createBoard();
+        }
+
+        createBoard();
+    </script>
+</body>
+</html>
